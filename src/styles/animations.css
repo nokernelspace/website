@@ -1,0 +1,48 @@
+@keyframes slide-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes slide-right {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+
+@keyframes fade-in {
+  0% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1.0;
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1.0;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+/* Apply the slide-left animation by default */
+body.loading-out {
+  animation: slide-left 0.5s forwards;
+}
+
+/* Apply the slide-right animation for screens larger than the mobile_threshold */
+@media screen and (min-width: 600px) { /* Replace 600px with your mobile_threshold */
+  body.loading-out {
+    animation: fade-out 0.5s forwards;
+  }
+}

@@ -1,0 +1,8 @@
+{
+    "projects": [
+        "nokernelspace/cloud-morph",
+        "nokernelspace/vscode-browser",
+        "nokernelspace/glorb"
+    ],
+    "mobile_threshold": 768
+}
