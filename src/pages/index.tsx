@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import { GetServerSideProps } from "next";
 import config from "./config.json";
 import React, { useState, useContext, useEffect } from "react";
-import AppContext from "./context.js";
+import AppContext from "../context.js";
 var ua_parser = require("ua-parser-js");
 
 const inter = Inter({ subsets: ["latin"] });
@@ -14,7 +14,7 @@ interface Repository {
   description: string;
 
   fork: boolean;
-  parent?: string;
+  parent?: string
 }
 
 interface Commit {
@@ -305,8 +305,8 @@ export default function Home({ commits, repos, headers }: ServerProps) {
   console.log(commits);
 
   return (
-    <div onMouseMove={handleMouseMove} className="flex flex-col">
-      <div className="flex justify-between w-screen flex-col grow md:px-6 2xl:px-96">
+    <div onMouseMove={handleMouseMove} className="flex flex-col h-full">
+      <div className="flex w-screen flex-col grow md:px-6 2xl:px-96">
         <div className="flex flex-col sm:flex-row mt-12 w-full">
           <Logo />
           <HeroContent />
@@ -413,26 +413,26 @@ export default function Home({ commits, repos, headers }: ServerProps) {
               className="cursor-pointer flex justify-between sm:underline sm:underline-offset-2 box-border text-white"
               data-title="nokernelspace is a collective based in San Francisco"
             >
-              <span className="invisible sm:visible"> About</span>
+              <span className="invisible md:visible"> About</span>
             </p>
           </div>
           <p
             className="cursor-pointer flex justify-between sm:underline sm:underline-offset-2 box-border text-white"
             data-title="Creativity for All"
           >
-            <span className="invisible sm:visible">Our Mission</span>
+            <span className="invisible md:visible">Our Mission</span>
           </p>
           <p
             className="cursor-pointer flex justify-between text-stone-500"
             data-title="🚧 wip"
           >
-            <span className="invisible sm:visible">Products</span>
+            <span className="invisible md:visible">Products</span>
           </p>
           <p
             className="cursor-pointer flex justify-between sm:underline sm:underline-offset-2 box-border text-white"
             data-title="root@nokernel.space"
           >
-            <span className="invisible sm:visible"> Partner with us</span>
+            <span className="invisible md:visible"> Partner with us</span>
           </p>
         </div>
         <div className="basis-1/3 flex flex-col px-8 py-2 justify-end text-right sm:text-left">

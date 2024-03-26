@@ -1,7 +1,7 @@
-import "@/styles/globals.css";
-import "@/styles/animations.css";
+import "../styles/globals.css";
+import "../styles/animations.css";
 import type { AppProps } from "next/app";
-import AppContext from './context.js';
+import AppContext from '../context.js';
 import { useState, useEffect } from "react";
 import {mobile_threshold} from './config.json';
 
