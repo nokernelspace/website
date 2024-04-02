@@ -14,7 +14,7 @@ interface Repository {
   description: string;
 
   fork: boolean;
-  parent?: string
+  parent?: string;
 }
 
 interface Commit {
@@ -133,8 +133,8 @@ export const getServerSideProps: GetServerSideProps<any> = async (context) => {
 
 function Logo() {
   return (
-    <div className="border-red flex m-auto mr-6">
-      <div className="border-blue w-48 h-48 flex m-auto invert">
+    <div className="flex m-auto mr-6 border-red">
+      <div className="flex w-48 h-48 m-auto border-blue invert">
         <img src="123.png" />
       </div>
     </div>
@@ -143,19 +143,19 @@ function Logo() {
 
 function HeroContent({ props }: any) {
   return (
-    <div className="border-green flex flex-col m-auto ml-6">
-      <h1 className="w-full block text-white text-4xl">This Is</h1>
-      <h1 className="w-full block text-white text-3xl my-2">
+    <div className="flex flex-col m-auto ml-6 border-green">
+      <h1 className="block w-full text-4xl text-white">This Is</h1>
+      <h1 className="block w-full my-2 text-3xl text-white">
         {" "}
         root
         <wbr />
         @nokernel.space
       </h1>
-      <div className="flex flex-col sm:flex-row gap-4 my-4">
-        <div className="outline outline-gray-400 rounded-lg border-green text-white text-center min-w-24 min-h-16 flex justify-center items-center cursor-pointer">
+      <div className="flex flex-col gap-4 my-4 sm:flex-row">
+        <div className="flex items-center justify-center text-center text-white rounded-lg cursor-pointer outline outline-gray-400 border-green min-w-24 min-h-16">
           Blog
         </div>
-        <div className="outline outline-gray-400 rounded-lg border-green text-white text-center min-w-24 min-h-16 flex justify-center items-center cursor-pointer">
+        <div className="flex items-center justify-center text-center text-white rounded-lg cursor-pointer outline outline-gray-400 border-green min-w-24 min-h-16">
           Github
         </div>
       </div>
@@ -174,7 +174,7 @@ function Card({ title, description, author, repository, target }: any) {
     <div className="basis-1/3 h-full border-green card-anim min-w-[200px]">
       <div className="relative flex justify-between block p-6 pt-4 bg-black border border-gray-100 rounded-lg shadow-md min-h-[200px] flex-col">
         <div className="flex flex-col justify-start">
-          <p className="font-normal text-white text-sm">{author}</p>
+          <p className="text-sm font-normal text-white">{author}</p>
 
           <h5 className="mb-1 text-2xl font-bold tracking-tight text-white opacity-70">
             {title}
@@ -188,7 +188,7 @@ function Card({ title, description, author, repository, target }: any) {
         Card Footer  
       */}
         <div className="flex flex-row gap-2 justify-around max-h-[24px] items-center">
-          <a href={target} target="_blank" className="link p-1">
+          <a href={target} target="_blank" className="p-1 link">
             <img src="github.svg" width="24px" height="24px" alt="" />
           </a>
           {repository != undefined ? (
@@ -306,18 +306,18 @@ export default function Home({ commits, repos, headers }: ServerProps) {
 
   return (
     <div onMouseMove={handleMouseMove} className="flex flex-col h-full">
-      <div className="flex w-screen flex-col grow md:px-6 2xl:px-96">
-        <div className="flex flex-col sm:flex-row mt-12 w-full">
+      <div className="flex flex-col w-screen grow md:px-6 2xl:px-96">
+        <div className="flex flex-col w-full mt-12 sm:flex-row">
           <Logo />
           <HeroContent />
         </div>
 
-        <div className="flex flex-col mt-12 border-red">
+        <div className="flex flex-col p-4 mt-12 border-red">
           <div id="commits" className="w-full border-blue">
             <h1 className="text-white">COMMITS</h1>
             <div
               id="commits_container"
-              className="flex flex-col sm:flex-row p-8 gap-4 overflow-x-auto"
+              className="flex flex-col gap-4 p-8 overflow-x-auto sm:flex-row"
             >
               {commits.map((commit: any) => {
                 return (
@@ -340,10 +340,10 @@ export default function Home({ commits, repos, headers }: ServerProps) {
           </div>
         </div>
 
-        <div className="flex flex-col mt-12 border-red">
+        <div className="flex flex-col p-4 mt-12 border-red">
           <div id="repos" className="w-full border-blue">
             <h1 className="text-white">REPOS</h1>
-            <div className="flex flex-col sm:flex-row p-8 gap-4 overflow-x-auto">
+            <div className="flex flex-col gap-4 p-8 overflow-x-auto sm:flex-row">
               {repos.map((repo: Repository) => {
                 if (config.projects.includes(repo.full_name)) {
                   if (repo.fork) {
@@ -374,7 +374,7 @@ export default function Home({ commits, repos, headers }: ServerProps) {
       </div>
 
       <div className="flex flex-col sm:flex-row">
-        <div className="basis-1/3 flex flex-col px-8 py-2 order-2 sm:order-none text-white">
+        <div className="flex flex-col justify-end order-2 px-8 py-2 text-white basis-1/3 sm:order-none">
           <h3>nokernel.space</h3>
           <p>
             Made with <span style={{ color: "#BA6573" }}>❤</span> by Root
@@ -383,14 +383,14 @@ export default function Home({ commits, repos, headers }: ServerProps) {
             <a
               href="https://github.com/nokernelspace"
               target="_blank"
-              className="link p-1"
+              className="p-1 link"
             >
               <img src="github.svg" width="30px" height="30px" alt="" />
             </a>
             <a
               href="https://soundcloud.com/nokernelspace"
               target="_blank"
-              className="link p-1"
+              className="p-1 link"
             >
               <img src="soundcloud.svg" width="36px" height="36px" alt="" />
             </a>
@@ -398,7 +398,7 @@ export default function Home({ commits, repos, headers }: ServerProps) {
             <a
               href="https://twitter.com/nokernelspace"
               target="_blank"
-              className="link p-1"
+              className="p-1 link"
             >
               <img src="twitter.svg" width="36px" height="36px" alt="" />
             </a>
@@ -407,35 +407,33 @@ export default function Home({ commits, repos, headers }: ServerProps) {
             2024 © All Rights Reserved
           </p>
         </div>
-        <div className="basis-1/3 flex flex-col px-8 py-2 justify-end text-right sm:text-left">
-          <div>
-            <p
-              className="cursor-pointer flex justify-between sm:underline sm:underline-offset-2 box-border text-white"
-              data-title="nokernelspace is a collective based in San Francisco"
-            >
-              <span className="invisible md:visible"> About</span>
-            </p>
-          </div>
+        <div className="flex flex-col justify-end px-8 py-2 text-right basis-1/3 sm:text-left">
           <p
-            className="cursor-pointer flex justify-between sm:underline sm:underline-offset-2 box-border text-white"
+            className="box-border flex justify-between mb-2 text-white cursor-pointer md:underline md:underline-offset-2"
+            data-title="nokernelspace is a collective based in San Francisco"
+          >
+            <span className="invisible md:visible"> About</span>
+          </p>
+          <p
+            className="box-border flex justify-between text-white cursor-pointer md:underline md:underline-offset-2"
             data-title="Creativity for All"
           >
             <span className="invisible md:visible">Our Mission</span>
           </p>
           <p
-            className="cursor-pointer flex justify-between text-stone-500"
+            className="flex justify-between cursor-pointer text-stone-500"
             data-title="🚧 wip"
           >
             <span className="invisible md:visible">Products</span>
           </p>
           <p
-            className="cursor-pointer flex justify-between sm:underline sm:underline-offset-2 box-border text-white"
+            className="box-border flex justify-between text-white cursor-pointer md:underline md:underline-offset-2"
             data-title="root@nokernel.space"
           >
             <span className="invisible md:visible"> Partner with us</span>
           </p>
         </div>
-        <div className="basis-1/3 flex flex-col px-8 py-2 justify-end text-right sm:text-left">
+        <div className="flex flex-col justify-end px-8 py-2 text-right basis-1/3 sm:text-left">
           <p className="text-white">
             {userAgents["browser"]["name"] +
               " v" +
