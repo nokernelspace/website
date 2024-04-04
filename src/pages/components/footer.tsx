@@ -42,7 +42,7 @@ export default function Footer() {
             </div>
             <div className="flex flex-col justify-end px-8 py-2 text-right basis-1/3 sm:text-left">
                 <p
-                    className="box-border flex justify-between mb-2 text-white cursor-pointer md:underline md:underline-offset-2"
+                    className="box-border flex justify-between mb-2 md:mb-0 text-white cursor-pointer md:underline md:underline-offset-2"
                     data-title="nokernelspace is a collective based in San Francisco"
                 >
                     <span className="invisible md:visible"> About</span>

@@ -96,7 +96,7 @@ export const getStaticProps: GetStaticProps<any> = async () => {
         headers: {
           "Content-Type": "Accept: application/vnd.github+json",
           Authorization: "Bearer " + apiKey,
-          "X-GitHub-Api-Version": "2022-11-28",
+          "X-itHub-Api-Version": "2022-11-28",
           // 'Content-Type': 'application/x-www-form-urlencoded',
         },
       }
@@ -171,7 +171,7 @@ export default function Home({ commits, repos, headers }: ServerProps) {
               <h1 className="text-white">COMMITS</h1>
               <div
                 id="commits_container"
-                className="flex flex-col gap-4 p-8 overflow-x-auto sm:flex-row"
+                className="flex flex-col gap-4 p-8 overflow-x-auto sm:flex-row mx-[5%]"
               >
                 {commits.map((commit: any) => {
                   return (
@@ -197,7 +197,7 @@ export default function Home({ commits, repos, headers }: ServerProps) {
           <div className="flex flex-col p-4 mt-12 border-red">
             <div id="repos" className="w-full border-blue">
               <h1 className="text-white">REPOS</h1>
-              <div className="flex flex-col gap-4 p-8 overflow-x-auto sm:flex-row">
+              <div className="flex flex-col gap-4 p-8 overflow-x-auto sm:flex-row mx-[5%]">
                 {repos.map((repo: Repository) => {
                     if (repo.fork) {
                       return (
