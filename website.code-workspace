@@ -1,0 +1,28 @@
+{
+	"folders": [
+		{
+			"name": "website",
+			"path": "."
+		},
+		{
+			"name": "public",
+			"path": "public"
+		},
+		{
+			"name": "styles",
+			"path": "src/styles"
+		},
+		{
+			"name": "pages",
+			"path": "src/pages"
+		},
+		{
+			"name": "api",
+			"path": "src/api"
+		},
+		{
+			"path": "../watcher"
+		}
+	],
+	"settings": {}
+}

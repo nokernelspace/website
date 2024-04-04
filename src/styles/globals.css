@@ -3,14 +3,13 @@
 @tailwind utilities;
 
 
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-rgb: 0, 0, 0;
+}
 
 body {
-  background-color: #000;
+  background-color: rgb(var(--background-rgb));
   height: 100vh;
 }
 
@@ -25,14 +24,15 @@ body {
 }
 
 
+/* Change functionality of Footers */
 @media (min-width: 768px) {
   [data-title]:hover::after {
-      opacity: 1;
-      transition: all 0.2s ease 0.250s;
-      visibility: visible;
+    opacity: 1;
+    transition: all 0.2s ease 0.250s;
+    visibility: visible;
   }
 
-[data-title]:after {
+  [data-title]:after {
     content: attr(data-title);
     background-color: #000;
     font-size: 100%;
@@ -47,18 +47,19 @@ body {
     border-radius: 0.5rem;
     z-index: 99999;
     visibility: visible;
+  }
 }
-}
+
 @media (max-width: 768px) {
   [data-title]:before {
-      content: attr(data-title);
-      background-color: #000;
-      font-size: 100%;
-      color: white;
-      text-align: left;
+    content: attr(data-title);
+    background-color: #000;
+    font-size: 100%;
+    color: white;
+    text-align: left;
   }
 }
 
 [data-title] {
-    position: relative;
+  position: relative;
 }
