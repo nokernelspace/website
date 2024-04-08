@@ -79,3 +79,21 @@ body.loading-out {
     animation: fade-out 0.5s forwards;
   }
 }
+
+@keyframes barberpole {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 50px;
+  }
+}
+
+.barberpole {
+  width: 50px;
+  height: 200px;
+  background: linear-gradient(-45deg, black 40%, white 40%, white 50%, black 50%, black 90%, white 90%, white);
+  background-size: 50px 50px;
+  animation: barberpole 1s linear infinite;
+  opacity: 0.8;
+}

@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "prod": "npx next start -p 80",
     "lint": "next lint"
   },
   "dependencies": {

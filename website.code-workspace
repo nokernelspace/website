@@ -13,14 +13,15 @@
 			"path": "src/styles"
 		},
 		{
+			"name": "api",
+			"path": "src/pages/api"
+		},
+		{
 			"name": "pages",
 			"path": "src/pages"
 		},
 		{
-			"name": "api",
-			"path": "src/api"
-		},
-		{
+			"name": "watcher",
 			"path": "../watcher"
 		}
 	],

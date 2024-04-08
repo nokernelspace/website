@@ -4,7 +4,7 @@ import { Inter } from "next/font/google";
 import { GetServerSideProps, GetStaticProps } from "next";
 import React, { useState, useEffect, useContext } from "react";
 var ua_parser = require("ua-parser-js");
-import Card from "./components/card";
+import { Card, CommitCard, RepoCard } from "./components/card";
 import Hero from "./components/hero";
 const Footer = dynamic(() => import('./components/footer'), { ssr: false });
 import Layout from "./components/layout";
@@ -17,6 +17,9 @@ interface Repository {
 
   fork: boolean;
   parent?: string;
+  private: boolean;
+
+  last_updated: string
 }
 
 interface Commit {
@@ -38,7 +41,7 @@ export const getStaticProps: GetStaticProps<any> = async () => {
 
   // Fetch repos
   const repo_res = await fetch(
-    "https://api.github.com/user/repos?sort=updated&direction=desc",
+    "https://api.github.com/user/repos?sort=pushed&direction=desc",
     {
       method: "GET", // *GET, POST, PUT, DELETE, etc.
       headers: {
@@ -58,34 +61,38 @@ export const getStaticProps: GetStaticProps<any> = async () => {
     let fork = repo.fork;
     let description = repo.description;
 
+    const repo_res = await fetch("https://api.github.com/repos/" + fullname, {
+      method: "GET", // *GET, POST, PUT, DELETE, etc.
+      headers: {
+        "Content-Type": "Accept: application/vnd.github+json",
+        Authorization: "Bearer " + apiKey,
+        "X-GitHub-Api-Version": "2022-11-28",
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    });
+    const repo_data = await repo_res.json();
     // Fetch repo information if parent
     if (fork) {
-      const repo_res = await fetch("https://api.github.com/repos/" + fullname, {
-        method: "GET", // *GET, POST, PUT, DELETE, etc.
-        headers: {
-          "Content-Type": "Accept: application/vnd.github+json",
-          Authorization: "Bearer " + apiKey,
-          "X-GitHub-Api-Version": "2022-11-28",
-          // 'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      });
-      const repo_data = await repo_res.json();
-      let repo: Repository = {
+      let _repo: Repository = {
         name: name,
         full_name: fullname,
         description: description,
         fork: true,
         parent: repo_data.parent.full_name,
+        private: repo.private,
+        last_updated: repo_data.updated_at
       };
-      sorted_repos.push(repo);
+      sorted_repos.push(_repo);
     } else {
-      let repo: Repository = {
+      let _repo: Repository = {
         name: name,
         full_name: fullname,
         description: description,
         fork: false,
+        private: repo.private,
+        last_updated: repo_data.updated_at
       };
-      sorted_repos.push(repo);
+      sorted_repos.push(_repo);
     }
 
     // Fetch commits per repo
@@ -159,23 +166,27 @@ export default function Home({ commits, repos, headers }: ServerProps) {
   // }, []); // Empty dependency array means this effect will only run once, when the component mounts
   return (
     <Layout>
+      {/* Vertical Sizing */}
       <div className="flex flex-col h-full">
+      {/* Horizontal Sizing */}
         <div className="flex flex-col w-screen grow md:px-6 2xl:px-96">
+      {/* Hero Container */}
           <div className="flex flex-col w-full mt-12 sm:flex-row">
             <Logo />
             <Hero />
           </div>
 
-          <div className="flex flex-col p-4 mt-12 border-red">
+          <div className="flex flex-col p-4 mt-12">
             <div id="commits" className="w-full border-blue">
               <h1 className="text-white">COMMITS</h1>
               <div
                 id="commits_container"
-                className="flex flex-col gap-4 p-8 overflow-x-auto sm:flex-row mx-[5%]"
+                className="flex flex-col gap-4 p-8 overflow-x-auto sm:flex-row mx-[5%] h-[250px] 
+                border-2 border-white border-solid rounded-xl"
               >
                 {commits.map((commit: any) => {
                   return (
-                    <Card
+                    <CommitCard
                       key={commit.sha}
                       sha={commit.sha}
                       title={commit.sha.substring(0, 6)}
@@ -187,6 +198,8 @@ export default function Home({ commits, repos, headers }: ServerProps) {
                         "/commit/" +
                         commit.sha
                       }
+                      date={commit.commit.author.date}
+                      repository={commit.repository}
                     />
                   );
                 })}
@@ -197,28 +210,32 @@ export default function Home({ commits, repos, headers }: ServerProps) {
           <div className="flex flex-col p-4 mt-12 border-red">
             <div id="repos" className="w-full border-blue">
               <h1 className="text-white">REPOS</h1>
-              <div className="flex flex-col gap-4 p-8 overflow-x-auto sm:flex-row mx-[5%]">
+              <div className="flex flex-col gap-4 p-8 overflow-x-auto sm:flex-row mx-[5%] h-[250px]">
                 {repos.map((repo: Repository) => {
-                    if (repo.fork) {
-                      return (
-                        <Card
-                          key={repo.full_name}
-                          title={repo.name}
-                          description={repo.description}
-                          repository={repo.parent}
-                          target={`https://github.com/${repo.full_name}`}
-                        />
-                      );
-                    } else {
-                      return (
-                        <Card
-                          key={repo.full_name}
-                          title={repo.name}
-                          description={repo.description}
-                          target={`https://github.com/${repo.full_name}`}
-                        />
-                      );
-                    }
+                  if (repo.fork) {
+                    return (
+                      <RepoCard
+                        key={repo.full_name}
+                        title={repo.name}
+                        description={repo.description}
+                        fork_repo={repo.parent}
+                        target={`https://github.com/${repo.full_name}`}
+                        privit={repo.private}
+                        last_updated={repo.last_updated}
+                      />
+                    );
+                  } else {
+                    return (
+                      <RepoCard
+                        key={repo.full_name}
+                        title={repo.name}
+                        description={repo.description}
+                        target={`https://github.com/${repo.full_name}`}
+                        privit={repo.private}
+                        last_updated={repo.last_updated}
+                      />
+                    );
+                  }
                 })}
               </div>
             </div>

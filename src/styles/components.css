@@ -10,3 +10,13 @@
 .card {
     @apply py-2 px-4 bg-blue-500 text-white rounded;
 }
+
+.card-wip {
+    background: repeating-linear-gradient(
+        -60deg,
+        rgb(76, 76, 76),
+        rgb(76, 76, 76) 50px,
+        black 50px,
+        black 100px
+    );
+}
